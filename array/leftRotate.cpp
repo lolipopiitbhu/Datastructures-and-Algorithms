@@ -34,6 +34,27 @@ void leftRotate(int arr[], int d, int n)
 	} 
 } 
 
+void reverse(int arr[], int start, int end) {
+	int temp;
+	while(start < end){
+		temp = arr[start];
+		arr[start] = arr[end];
+		arr[end] = temp;
+		start++;
+		end--;
+	}
+}
+void leftRotateByReversal(int arr[], int n, int d) {
+	if(d==0 || d%n==0){
+		return;
+	}
+	d=d%n;
+	reverse(arr,0,d-1);
+	reverse(arr,d,n-1);
+	reverse(arr,0,n-1);
+
+}
+
 int main() {
 	int t;
 	cin>>t;
