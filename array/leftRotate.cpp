@@ -55,6 +55,51 @@ void leftRotateByReversal(int arr[], int n, int d) {
 
 }
 
+void swap(int arr[],int ai, int bi, int an) {
+    int i,temp;
+    for(i=0;i<an;i++) {
+        temp = arr[ai];
+        arr[ai] = arr[bi];
+        arr[bi] = temp;
+        ai++;
+        bi++;
+    }
+}
+
+void block_rotate_util(int arr[], int ai, int an, int bi, int bn){
+    if(an==0 || bn==0) {
+        return;
+    }
+    if(an==bn){
+        swap(arr,ai,bi,an);
+        return;
+    }
+    if(an<bn){
+        int bli,bln,bri,brn;
+        bli=bi;
+        bln=bn-an;
+        bri=bli+bln;
+        brn=an;
+        swap(arr,ai,bri,an);
+        block_rotate_util(arr,ai,an,bli,bln);
+        return;
+    }
+    if(an>bn){
+        int ali,aln,ari,arn;
+        ali=ai;
+        aln=bn;
+        ari=ali+aln;
+        arn=an-bn;
+        swap(arr, ai,bi,bn);
+        block_rotate_util(arr,ari,arn,bi,bn);
+    }
+}
+
+void block_rotate(int arr[], int n, int d) {
+    d=d%n;
+	block_rotate_util(arr,0,d,d,n-d);
+}
+
 int main() {
 	int t;
 	cin>>t;
